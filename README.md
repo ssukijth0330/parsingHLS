@@ -1,20 +1,20 @@
 # parsingHLS
-
+------------
 Assuming:
 - Cargo is already installed on PC.
 - VScode is already installed with RUST extension.
 - Internet to access github.
 
 1) Load the code:
-    - Use the terminal of VScode and type
+    - From the terminal of VScode and type
         git clone https://github.com/ssukijth0330/parsingHLS
 2) Build
-    - Use the terminal of VScode and type
+    - From the terminal of VScode and type
+        cd parsingHLS
         cargo build
 3) Run
-    - Use the terminal of VScode and type
+    - From the terminal of VScode and type
         cargo run
-
 
 This is part of the output
 --------------------------
@@ -40,5 +40,8 @@ The code is hardcode to load the content of m3u8 from,
 "https://docs.evostream.com/sample_content/assets/hls-bunny-rangerequest/bunny/playlist.m3u8".
 
 The duration of video is the summation of floating number from the tag #EXTINF inside the m3u8 file.
+
+Missing Feature:
+The code can not handle second level of adaptive bitrate of the m3u8 yet.
 
 
