@@ -6,15 +6,15 @@ Assuming:
 - Internet to access github.
 
 1) Load the code:
-    - From the terminal of VScode and type
-        git clone https://github.com/ssukijth0330/parsingHLS
+    - From the terminal of VScode and type, 
+        'git clone https://github.com/ssukijth0330/parsingHLS'
 2) Build
-    - From the terminal of VScode and type
-        cd parsingHLS
-        cargo build
+    - From the terminal of VScode and type, 
+        'cd parsingHLS', 
+        'cargo build'
 3) Run
-    - From the terminal of VScode and type
-        cargo run
+    - From the terminal of VScode and type, 
+        'cargo run'
 
 Output of single level of manifest
 ----------------------------------
