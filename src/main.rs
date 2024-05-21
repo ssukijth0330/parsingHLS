@@ -2,9 +2,12 @@ mod duration;
 
 fn main() {
 
+    // Single Level of m3u8 file:
     //let url = "https://docs.evostream.com/sample_content/assets/hls-bunny-rangerequest/bunny/playlist.m3u8";
     // let url = "http://localhost/hls/bigb_720.m3u8";
     //let url = "http://localhost/hls/bigb_480.m3u8";
+
+    // Two levels of m3u8 files:
     let url = "https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/master_unenc_avc_aac_subs_ccjk.m3u8";
     //let url = "http://localhost/hls/sintel/sintel_4k.m3u8";
     println!("URL: {}\n", url);
