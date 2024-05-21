@@ -5,6 +5,10 @@ Assuming:
 - VScode is already installed with RUST extension.
 - Internet to access github.
 
+Limitation:
+- The project is NOT designed to validate the HLS manifest tags in side the file. It only focus of two HLS manifest tag, #EXTINF and #EXT-X-STREAM-INF.
+
+
 1) Load the code:
     - From the terminal of VScode and type, 
         'git clone https://github.com/ssukijth0330/parsingHLS'
