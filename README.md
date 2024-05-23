@@ -20,6 +20,12 @@ Limitation:
     - From the terminal of VScode and type, 
         'cargo run'
 
+        or run the binary file.
+
+        'cd terget/debug',
+        './parsingHLS'
+
+
 Output of single level of manifest
 ----------------------------------
 URL: https://docs.evostream.com/sample_content/assets/hls-bunny-rangerequest/bunny/playlist.m3u8
