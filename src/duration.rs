@@ -85,7 +85,7 @@ pub fn from_secs_f32(url: &str) -> f32{
     //Split the content into vector, line by line
     let lines: Vec<&str> = response.split("\n").collect();
     let mut duration:f32 = 0.0;
-    println!("Calculating duration of video, {}", url);
+    //println!("Calculating duration of video, {}", url);
     // Combine duration of segments to get the total duration of the video:
     // ...
     // #EXTINF:10.00,
