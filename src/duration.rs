@@ -34,7 +34,7 @@ pub fn parse_m3u8_url(url: &str) {
         .text()
         .expect("Failed to read the URL");
 
-    //split the content line-by-line put into vector
+    //split the content line-by-line and put into vector
     let lines: Vec<&str> = file.split("\n").collect();
     let mut read_inside_m3u8 = false;
     for line in lines {
