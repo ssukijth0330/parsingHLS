@@ -27,7 +27,7 @@ Steps:
 
         'cd terget/debug',
         './parsingHLS'
-
+        
 4) Test suit: Test the duration parser function
     - From the terminal of VScode and type, 
         'cargo test'

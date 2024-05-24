@@ -57,6 +57,9 @@ pub fn parse_m3u8_url(url: &str) {
         }
         match line.to_string() {
             s if s.contains("#EXT-X-STREAM-INF") => { // there is a second layer of m3u8
+                // #EXT-X-STREAM-INF:....,RESOLUTION=640x480
+                // bigb_480.m3u8
+                //
                 // set "read_inside_m3u8 to true"
                 read_inside_m3u8 = true;
                 continue;
@@ -156,7 +159,9 @@ pub fn display_content_of_m3u8_url(url: &str) {
 //
 #[cfg(test)]
 mod tests {
+    //Bring the functions from the outer scope into the test scope
     use super::*;
+
     #[test]
     fn duration_test() {
         // Single Level of m3u8 file:
