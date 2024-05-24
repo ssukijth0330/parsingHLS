@@ -108,20 +108,12 @@ pub fn from_secs_f32(url: &str) -> f32{
             let duration_f32_vec: Vec<&str> = duration_f32_str_raw.split(",").collect();
             // The duration is in duration_f32_vec[0]
             // then convert it to f32 format
-            let duration_f32: f32 = duration_f32_vec[0].parse().unwrap();           
-
+            let duration_f32: f32 = duration_f32_vec[0].parse().unwrap();
             //sum duration of each segment
             duration = duration + duration_f32;
-        }
+        } // more HLS tags can be added here
     }
     duration
-    // Warning:
-    // println!("Note:
-    // The calculated duration may not accurately reflect real-time video playback. In adative bitrate streaming, 
-    // bandwidth fluctuation can result in the display of video segments from different bandwidths. 
-    // The duration above is calculated based on segments from the same bandwith m3u8 file.
-    //
-    // To solve this problem, it necessary to ensure that each video segment maintains a consistent duration across all bandwidth.");
 }
 
 // SUPPORT FUNCTIONS:
@@ -151,4 +143,25 @@ pub fn display_content_of_m3u8_url(url: &str) {
         .expect("Failed to read the URL");
     //print the response
     println!("{}", response);
+}
+
+// Test suite
+//
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn duration_test() {
+        // Single Level of m3u8 file:
+        let url = "https://docs.evostream.com/sample_content/assets/hls-bunny-rangerequest/bunny/playlist.m3u8";
+        // The entire video duration is 100.96
+        assert_eq!(from_secs_f32(url), 100.96);
+    }
+    #[test]
+    fn duration_test_negative_test_case() {
+        // Single Level of m3u8 file:
+        let url = "https://docs.evostream.com/sample_content/assets/hls-bunny-rangerequest/bunny/playlist.m3u8";
+        // The entire video duration is 100.96
+        assert_eq!(from_secs_f32(url), 101.96);
+    }
 }

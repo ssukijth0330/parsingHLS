@@ -1,12 +1,16 @@
-# parsingHLS
-------------
-Assuming:
+Parsing HLS project
+===================
+Assuming before start:
 - Cargo is already installed on PC.
 - VScode is already installed with RUST extension.
-- Internet to access github.
+- Internet access to github.
 
 Limitation:
-- The project is NOT designed to validate the HLS manifest tags in side the file. It only focus of two HLS manifest tag, #EXTINF and #EXT-X-STREAM-INF.
+- The project is NOT designed to validate the HLS manifest tags. It only focus of two M3U tag, #EXTINF and #EXT-X-STREAM-INF, 
+and then calculate the total duration of video segments to get the entire video playback time.
+
+Please note: 
+The entire video playback duration is calculated from a single m3u8 file.
 
 
 1) Load the code:
@@ -25,6 +29,13 @@ Limitation:
         'cd terget/debug',
         './parsingHLS'
 
+4) Test suit: Test the duration parser function
+    - From the terminal of VScode and type, 
+        'cargo test'
+
+
+Output from running the application (cargo run)
+===============================================
 
 Output of single level of manifest
 ----------------------------------
@@ -32,19 +43,40 @@ URL: https://docs.evostream.com/sample_content/assets/hls-bunny-rangerequest/bun
 
 The duration to play all segments of this video is(secs): 100.96
 
+
+
+
 Output of two level of manifest
 -------------------------------
 URL: https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/master_unenc_avc_aac_subs_ccjk.m3u8
 
-Calculate duration of https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/avc/unenc/1200k/vod.m3u8
+Calculating duration of https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/avc/unenc/1200k/vod.m3u8
 The duration to play all segments of this video is(secs): 462.83722
 
-Calculate duration of https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/avc/unenc/1800k/vod.m3u8
+Calculating duration of https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/avc/unenc/1800k/vod.m3u8
 The duration to play all segments of this video is(secs): 462.83722
 ...
 
 
-Sample manifest of nested m3u:
+Ref:
+----
+Sample of single level m3u8
+--------------------------
+.
+.
+.
+#EXTINF:12.166,
+#EXT-X-BYTERANGE:1430680@4048392
+segment_1440468394459_1440468394459_1.ts
+#EXTINF:13.292,
+#EXT-X-BYTERANGE:840360@5479072
+segment_1440468394459_1440468394459_1.ts
+.
+.
+.
+
+Sample of nested m3u
+--------------------
 
 https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/master_unenc_avc_aac_subs_ccjk.m3u8"
 .
@@ -59,4 +91,10 @@ avc/unenc/1800k/vod.m3u8
 .
 
 The code will goto the next level of m3u8 file and calculate the duration of https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/avc/unenc/1200k/vod.m3u8 and https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/avc/unenc/1800k/vod.m3u8
+
+
+Documents:
+M3U (MP3 URL) tag:     https://en.wikipedia.org/wiki/M3U#Extended_M3U
+Playlist:  https://datatracker.ietf.org/doc/html/rfc8216#section-4
+Sample of HLS video: https://docs.evostream.com/sample_content/assets/hls-bunny-rangerequest/bunny/playlist.m3u8
 
