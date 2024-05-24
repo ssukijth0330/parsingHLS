@@ -1,18 +1,17 @@
 Parsing HLS project
 ===================
 Assuming before start:
-- Cargo is already installed on PC.
-- VScode is already installed with RUST extension.
-- Internet access to github.
+- VScode and Cargo is already installed on PC.
+- RUST extension already installed on VScode.
+- Internet access to github.(optional)
 
 Limitation:
-- The project is NOT designed to validate the HLS manifest tags. It only focus of two M3U tag, #EXTINF and #EXT-X-STREAM-INF, 
-and then calculate the total duration of video segments to get the entire video playback time.
+- The project is NOT designed to validate the HLS manifest tags. It only focus of two M3U tags, #EXTINF and #EXT-X-STREAM-INF.
 
 Please note: 
-The entire video playback duration is calculated from a single m3u8 file.
+The entire video playback duration is calculated based on a single m3u8 file.
 
-
+Steps:
 1) Load the code:
     - From the terminal of VScode and type, 
         'git clone https://github.com/ssukijth0330/parsingHLS'
