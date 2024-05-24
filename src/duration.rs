@@ -157,6 +157,7 @@ mod tests {
         // The entire video duration is 100.96
         assert_eq!(from_secs_f32(url), 100.96);
     }
+    
     #[test]
     fn duration_test_negative_test_case() {
         // Single Level of m3u8 file:
