@@ -23,7 +23,7 @@ Steps:
     - From the terminal of VScode and type, 
         'cargo run'
 
-        or run the binary file.
+        or run the binary executable file.
 
         'cd terget/debug',
         './parsingHLS'
@@ -96,4 +96,3 @@ Documents:
 M3U (MP3 URL) tag:     https://en.wikipedia.org/wiki/M3U#Extended_M3U
 Playlist:  https://datatracker.ietf.org/doc/html/rfc8216#section-4
 Sample of HLS video: https://docs.evostream.com/sample_content/assets/hls-bunny-rangerequest/bunny/playlist.m3u8
-

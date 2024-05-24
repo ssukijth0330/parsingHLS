@@ -39,16 +39,20 @@ pub fn parse_m3u8_url(url: &str) {
     let mut read_inside_m3u8 = false;
     for line in lines {
         if read_inside_m3u8 { // Prevoiuse line contains #EXT-X-STREAM-INF
+            if line.contains(".m3u8") {
+                // got "line = bigb_480.m3u8" for example
+                // replace filename of the original URL with the inside m3u8 file name
+                // For example:
+                // "http://hostname/path/bigb.m3u8"  <---- "bigb_480.m3u8"
+                let url = replace_with_newfilename_in_org_url(url.trim(), line.trim());
+                // Calculate the sum of duration of the video of that bandwidth
+                let duration = from_secs_f32(&url);
+                println!("The duration of the video of this bandwidth,({}) is: {}\n", line, duration);
+            } else {
+                println!("Warning: expected m3u8 file, but got: {}", line);
+            }
+            //set the flag to false
             read_inside_m3u8 = false;
-            // got "line = bigb_480.m3u8"
-            // replace filename of the original URL with the inside m3u8 file name
-            // "http://hostname/path/bigb.m3u8"  <---- "bigb_480.m3u8"
-            let url = replace_with_newfilename_in_org_url(url.trim(), line.trim());
-            // then the new URL is "http://hostname/path/bigb_480.m3u8"
-
-            // Calculate the sum of duration of the video of that bandwidth
-            let duration = from_secs_f32(&url);
-            println!("The duration of the video of this bandwidth,({}) is: {}\n", line, duration);
             continue;
         }
         match line.to_string() {
@@ -97,7 +101,7 @@ pub fn from_secs_f32(url: &str) -> f32{
         if line.contains("#EXTINF") {  // found #EXTINF:10.00,
             //  split the string by using ":" into vector
             let duration_vec: Vec<&str> = line.split(":").collect();
-            //got the duration in duration_vec[1]
+            //got the duration in duration_vec[1]="10.00,"
             // but it may contain unwanted characters
             // convert the duration to string
             let duration_f32_str_raw = duration_vec[1].to_string();
@@ -106,7 +110,7 @@ pub fn from_secs_f32(url: &str) -> f32{
             // remove ending "," from the string
             //by split the string with "," delimiter
             let duration_f32_vec: Vec<&str> = duration_f32_str_raw.split(",").collect();
-            // The duration is in duration_f32_vec[0]
+            // The duration is in duration_f32_vec[0]="10.00"
             // then convert it to f32 format
             let duration_f32: f32 = duration_f32_vec[0].parse().unwrap();
             //sum duration of each segment
@@ -123,12 +127,15 @@ pub fn from_secs_f32(url: &str) -> f32{
 //Input: the original URL, the file name that we found in the m3u8 file
 //Output: the combination of base URL with path and the file name that we found in the m3u8 file
 //
+// "http://hostname/path/bigb.m3u8"  <---- "bigb_480.m3u8"
 pub fn replace_with_newfilename_in_org_url(in_url: &str, m3u8_filename: &str) -> String {
     //split the file name out from the original URL
+    // "http://hostname/path/bigb.m3u8"
     let file_name = in_url.split('/').last().unwrap();
     //Replace the file name in the origianl URL with blank
     let url_no_file = in_url.replace(file_name, "");
-    //combine output URL with the file name that we found in the m3u8 file
+    // Comcantinate the output URL with the file name that we found in the m3u8 file
+    // "http://hostname/path/" + "bigb_480.m3u8"
     let url = format!("{}{}", url_no_file, m3u8_filename);
     url
 }
@@ -157,7 +164,7 @@ mod tests {
         // The entire video duration is 100.96
         assert_eq!(from_secs_f32(url), 100.96);
     }
-    
+
     #[test]
     fn duration_test_negative_test_case() {
         // Single Level of m3u8 file:
