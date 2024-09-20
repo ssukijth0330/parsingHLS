@@ -25,7 +25,7 @@ Steps:
 
         or run the binary executable file.
 
-        'cd terget/debug',
+        'cd target/debug',
         './parsingHLS'
         
 4) Test suit: Test the duration parser function
